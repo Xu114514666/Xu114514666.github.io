@@ -1,37 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<title>白帝WD——权威</title>
-<script>
-window.alert("🎉欢迎！！！🎉")
-</script>
-<style>
-.myDiv {
-  border: 5px outset black;
-  background-color: white;
-  text-align: center;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白帝WD——权威</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #f8f9fa;
+            --accent-color: #ff6b6b;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: var(--primary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .content-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .resource-item {
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-color);
+            background-color: var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .resource-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #ff5252;
+        }
+        
+        .password-tag {
+            display: inline-block;
+            background-color: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-left: 10px;
+        }
+        
+        .recommended-badge {
+            background-color: gold;
+            color: var(--primary-color);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-
-<div class="myDiv">
-<h1><span style="background-color:black;color:white;">😂白帝资源下载站😂<span></h1>
-	<div style="letter-spacing:12px;"></p><h2>🔎资源列表🔍</h2></div>
-
-<center>
-<p>1.👇苏妲己の盛情演讲👇</p>
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112845534595866&bvid=BV1rJedeTEca&cid=500001626710915&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-<p>(😍站长推荐😍)</p>
-<p>2.<a href="https://wwzo.lanzoue.com/i9mX42p9p0qd">？？？.exe</a>👈一个恶搞白帝的小程序</p>
-<p>下载密码:114514</p>
-<p>3.<a href="https://wwzo.lanzoue.com/i4mjf2rq9vsj">牢犬.png</a>👈牢犬也干了</p>
-<p>下载密码:54188</p>
-<p>4.<a href="https://wwzo.lanzoue.com/i7X732rqedib">王子涵の小曲.mp3</a>👈《王子涵の小曲》</p>
-<p>下载密码:666</p>
-<p>5.<a href="https://wwzo.lanzoue.com/iCsY22rqf4gb">拼好歌.mp3</a>👈《拼好歌》</p>
-<p>下载密码:666</p>
-</center>
-
+    <div class="container">
+        <header>
+            <h1>😂白帝资源下载站😂</h1>
+            <p>！权威！</p>
+        </header>
+        
+        <div class="content-box">
+            <h2 style="text-align: center; letter-spacing: 8px;">🔎 精选资源列表 🔍</h2>
+            
+            <div class="resource-item">
+                <h3>苏妲己の盛情演讲</h3>
+                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112845534595866&bvid=BV1rJedeTEca&cid=500001626710915&p=1" 
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                            frameborder="0" 
+                            allowfullscreen></iframe>
+                </div>
+                <p><span class="recommended-badge">站长推荐</span></p>
+            </div>
+            
+            <div class="resource-item">
+                <h3>神秘小程序</h3>
+                <p>一个恶搞白帝的小程序</p>
+                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载文件</a>
+                <span class="password-tag">密码: 114514</span>
+            </div>
+            
+            <div class="resource-item">
+                <h3>牢犬也干了</h3>
+                <p>经典历史时刻记录</p>
+                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载图片</a>
+                <span class="password-tag">密码: 54188</span>
+            </div>
+            
+            <div class="resource-item">
+                <h3>王子涵の小曲</h3>
+                <p>经典旋律再现</p>
+                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载MP3</a>
+                <span class="password-tag">密码: 666</span>
+            </div>
+            
+            <div class="resource-item">
+                <h3>拼好歌</h3>
+                <p>洗脑神曲收藏版</p>
+                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载MP3</a>
+                <span class="password-tag">密码: 666</span>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 白帝WD - 本网站内容仅供娱乐</p>
+            <p>安全提示：请勿下载不明来源的可执行文件</p>
+        </footer>
+    </div>
+    
+    <script>
+        window.onload = function() {
+            alert("🎉 欢迎来到白帝资源站！ 🎉");
+            
+            // 为所有下载链接添加确认提示
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    if(!confirm('您即将下载文件，请确保来源可靠！\n\n是否继续？')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        };
+    </script>
 </body>
 </html>
