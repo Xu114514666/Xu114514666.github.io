@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>白帝WD——权威</title>
+    <script>
+        window.alert("🎉欢迎！！！🎉")
+    </script>
     <style>
         :root {
             --primary-color: #333;
@@ -64,6 +67,7 @@
             text-decoration: none;
             margin-top: 10px;
             transition: background-color 0.3s;
+            cursor: pointer;
         }
         
         .download-btn:hover {
@@ -96,76 +100,116 @@
             color: #666;
             font-size: 14px;
         }
+        
+        /* 新增的居中样式 */
+        .center-content {
+            text-align: center;
+        }
+        
+        /* 视频容器样式 */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>😂白帝资源下载站😂</h1>
-            <p>！权威！</p>
+            <h1><span style="background-color:black;color:white;">😂白帝资源下载站😂</span></h1>
         </header>
         
         <div class="content-box">
-            <h2 style="text-align: center; letter-spacing: 8px;">🔎 精选资源列表 🔍</h2>
+            <h2 style="text-align: center; letter-spacing: 8px;">🔎资源列表🔍</h2>
             
             <div class="resource-item">
-                <h3>苏妲己の盛情演讲</h3>
-                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                <h3 class="center-content">👇苏妲己の盛情演讲👇</h3>
+                <div class="video-container">
                     <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112845534595866&bvid=BV1rJedeTEca&cid=500001626710915&p=1" 
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
                             frameborder="0" 
                             allowfullscreen></iframe>
                 </div>
-                <p><span class="recommended-badge">站长推荐</span></p>
+                <p class="center-content"><span class="recommended-badge">❤站❤长❤推❤荐❤</span></p>
             </div>
             
             <div class="resource-item">
-                <h3>神秘小程序</h3>
+                <h3>？.exe</h3>
                 <p>一个恶搞白帝的小程序</p>
-                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载文件</a>
+                <a href="javascript:void(0)" class="download-btn" 
+                   onclick="downloadResource('？？？.exe', 'https://wwzo.lanzoue.com/i6ryn2r6yyod', '114514')">
+                   下载EXE文件
+                </a>
                 <span class="password-tag">密码: 114514</span>
             </div>
+			
+			<div class="resource-item">
+                <h3>白帝——权威！.exe</h3>
+                <p>一个恶搞白帝的小病毒</p>
+                <a href="javascript:void(0)" class="download-btn" 
+                   onclick="downloadResource('白帝——权威！.exe', 'https://wwzo.lanzoue.com/iPOYO2sab14h', '233')">
+                   下载EXE文件
+                </a>
+                <span class="password-tag">密码: 233</span>
+            </div>
             
             <div class="resource-item">
-                <h3>牢犬也干了</h3>
-                <p>经典历史时刻记录</p>
-                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载图片</a>
+                <h3>牢犬.png</h3>
+                <p>牢犬也干了</p>
+                <a href="javascript:void(0)" class="download-btn" 
+                   onclick="downloadResource('牢犬.png', 'https://wwzo.lanzoue.com/i4mjf2rq9vsj', '54188')">
+                   下载PNG图片
+                </a>
                 <span class="password-tag">密码: 54188</span>
             </div>
             
             <div class="resource-item">
-                <h3>王子涵の小曲</h3>
-                <p>经典旋律再现</p>
-                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载MP3</a>
+                <h3>王子涵の小曲.mp3</h3>
+                <p>《王子涵の小曲》</p>
+                <a href="javascript:void(0)" class="download-btn" 
+                   onclick="downloadResource('王子涵の小曲.mp3', 'https://wwzo.lanzoue.com/i7X732rqedib', '666')">
+                   下载MP3
+                </a>
                 <span class="password-tag">密码: 666</span>
             </div>
             
             <div class="resource-item">
-                <h3>拼好歌</h3>
-                <p>洗脑神曲收藏版</p>
-                <a href="#" class="download-btn" onclick="alert('下载前请确认文件安全性！')">下载MP3</a>
+                <h3>拼好歌.mp3</h3>
+                <p>《拼好歌》</p>
+                <a href="javascript:void(0)" class="download-btn" 
+                   onclick="downloadResource('拼好歌.mp3', 'https://wwzo.lanzoue.com/iCsY22rqf4gb', '666')">
+                   下载MP3
+                </a>
                 <span class="password-tag">密码: 666</span>
             </div>
         </div>
         
         <footer>
-            <p>© 2023 白帝WD - 本网站内容仅供娱乐</p>
+            <p>© 2025 白帝WD - 本网站内容仅供娱乐</p>
             <p>安全提示：请勿下载不明来源的可执行文件</p>
         </footer>
     </div>
     
     <script>
+        // 下载资源函数
+        function downloadResource(filename, url, password) {
+            if(confirm(`即将下载: ${filename}\n\n下载密码: ${password}\n\n请确保文件来源可靠！`)) {
+                window.open(url, '_blank');
+            }
+        }
+        
         window.onload = function() {
-            alert("🎉 欢迎来到白帝资源站！ 🎉");
-            
-            // 为所有下载链接添加确认提示
-            document.querySelectorAll('.download-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    if(!confirm('您即将下载文件，请确保来源可靠！\n\n是否继续？')) {
-                        e.preventDefault();
-                    }
-                });
-            });
+            // 移除重复的欢迎弹窗
         };
     </script>
 </body>
