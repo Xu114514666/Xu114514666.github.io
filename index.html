@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>白帝WD——权威</title>
-    <script>
-        window.alert("🎉欢迎！！！🎉")
-    </script>
     <style>
         :root {
             --primary-color: #333;
             --secondary-color: #f8f9fa;
             --accent-color: #ff6b6b;
+            --bg-color: #f5f5f5;
+        }
+        
+        /* 暗黑模式变量 */
+        :root[data-theme="dark"] {
+            --primary-color: #f0f0f0;
+            --secondary-color: #2d2d2d;
+            --bg-color: #121212;
         }
         
         body {
@@ -19,14 +24,66 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
+            background-color: var(--bg-color);
             color: var(--primary-color);
+            transition: background 0.5s;
         }
         
+        /* 炫彩标题特效 */
+        .gradient-title {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(135deg,
+                    #0eaf6d,
+                    #ff6ac6 25%,
+                    #147b96 50%,
+                    #e6d205 55%,
+                    #2cc4e0 60%,
+                    #8b2ce0 80%,
+                    #ff6384 95%,
+                    #08dfb4);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            background-size: 200% 100%;
+            animation: flowCss 12s infinite linear;
+            font-size: 2.2em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes flowCss {
+            0% { background-position: 0 0; }
+            100% { background-position: -400% 0; }
+        }
+        
+        .gradient-title:hover {
+            animation: flowCss 4s infinite linear;
+        }
+        
+        /* 粒子特效 */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: fade 1s forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes fade {
+            to { 
+                opacity: 0; 
+                transform: translate(var(--tx), var(--ty)) scale(0); 
+            }
+        }
+        
+        /* 布局样式 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
         
         header {
@@ -39,7 +96,7 @@
         }
         
         .content-box {
-            background-color: white;
+            background-color: var(--secondary-color);
             border-radius: 8px;
             padding: 30px;
             margin-top: 20px;
@@ -50,7 +107,7 @@
             padding: 15px;
             margin: 15px 0;
             border-left: 4px solid var(--accent-color);
-            background-color: var(--secondary-color);
+            background-color: rgba(255,107,107,0.1);
             transition: transform 0.3s ease;
         }
         
@@ -66,12 +123,14 @@
             border-radius: 4px;
             text-decoration: none;
             margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
             cursor: pointer;
+            border: none;
         }
         
         .download-btn:hover {
             background-color: #ff5252;
+            transform: translateY(-2px);
         }
         
         .password-tag {
@@ -81,6 +140,7 @@
             border-radius: 4px;
             font-family: monospace;
             margin-left: 10px;
+            cursor: pointer;
         }
         
         .recommended-badge {
@@ -99,14 +159,13 @@
             padding: 20px;
             color: #666;
             font-size: 14px;
+            position: relative;
         }
         
-        /* 新增的居中样式 */
         .center-content {
             text-align: center;
         }
         
-        /* 视频容器样式 */
         .video-container {
             position: relative;
             padding-bottom: 56.25%;
@@ -122,12 +181,44 @@
             width: 100%;
             height: 100%;
         }
+        
+        /* 暗黑模式切换按钮 */
+        #theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* 鸡按钮彩蛋 */
+        #secret-chicken {
+            cursor: pointer;
+            display: inline-block;
+            font-size: 0.8em;
+            opacity: 0.3;
+            transition: all 0.3s;
+            margin-right: 5px;
+        }
+        
+        #secret-chicken:hover {
+            opacity: 0.7;
+            transform: rotate(10deg);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><span style="background-color:black;color:white;">😂白帝资源下载站😂</span></h1>
+            <h1 class="gradient-title">꧁白帝资源下载站꧂</h1>
         </header>
         
         <div class="content-box">
@@ -146,59 +237,63 @@
             <div class="resource-item">
                 <h3>？.exe</h3>
                 <p>一个恶搞白帝的小程序</p>
-                <a href="javascript:void(0)" class="download-btn" 
+                <button class="download-btn" 
                    onclick="downloadResource('？？？.exe', 'https://wwzo.lanzoue.com/i6ryn2r6yyod', '114514')">
                    下载EXE文件
-                </a>
-                <span class="password-tag">密码: 114514</span>
+                </button>
+                <span class="password-tag" onclick="this.textContent='真实密码：114514'">密码: 114514</span>
             </div>
 			
 			<div class="resource-item">
                 <h3>白帝——权威！.exe</h3>
                 <p>一个恶搞白帝的小病毒</p>
-                <a href="javascript:void(0)" class="download-btn" 
+                <button class="download-btn" 
                    onclick="downloadResource('白帝——权威！.exe', 'https://wwzo.lanzoue.com/iPOYO2sab14h', '233')">
                    下载EXE文件
-                </a>
-                <span class="password-tag">密码: 233</span>
+                </button>
+                <span class="password-tag" onclick="this.textContent='真实密码：233'">密码: 233</span>
             </div>
             
             <div class="resource-item">
                 <h3>牢犬.png</h3>
                 <p>牢犬也干了</p>
-                <a href="javascript:void(0)" class="download-btn" 
+                <button class="download-btn" 
                    onclick="downloadResource('牢犬.png', 'https://wwzo.lanzoue.com/i4mjf2rq9vsj', '54188')">
                    下载PNG图片
-                </a>
-                <span class="password-tag">密码: 54188</span>
+                </button>
+                <span class="password-tag" onclick="this.textContent='真实密码：54188'">密码: 54188</span>
             </div>
             
             <div class="resource-item">
                 <h3>王子涵の小曲.mp3</h3>
                 <p>《王子涵の小曲》</p>
-                <a href="javascript:void(0)" class="download-btn" 
+                <button class="download-btn" 
                    onclick="downloadResource('王子涵の小曲.mp3', 'https://wwzo.lanzoue.com/i7X732rqedib', '666')">
                    下载MP3
-                </a>
-                <span class="password-tag">密码: 666</span>
+                </button>
+                <span class="password-tag" onclick="this.textContent='真实密码：666'">密码: 666</span>
             </div>
             
             <div class="resource-item">
                 <h3>拼好歌.mp3</h3>
                 <p>《拼好歌》</p>
-                <a href="javascript:void(0)" class="download-btn" 
+                <button class="download-btn" 
                    onclick="downloadResource('拼好歌.mp3', 'https://wwzo.lanzoue.com/iCsY22rqf4gb', '666')">
                    下载MP3
-                </a>
-                <span class="password-tag">密码: 666</span>
+                </button>
+                <span class="password-tag" onclick="this.textContent='真实密码：666'">密码: 666</span>
             </div>
         </div>
         
         <footer>
-            <p>© 2025 白帝WD - 本网站内容仅供娱乐</p>
+            <span id="secret-chicken" title="你知道该做什么...">🐔</span>
+            <p>© 2025 XvZero - 本网站内容仅供娱乐</p>
             <p>安全提示：请勿下载不明来源的可执行文件</p>
         </footer>
     </div>
+    
+    <!-- 暗黑模式切换按钮 -->
+    <button id="theme-toggle">🌓</button>
     
     <script>
         // 下载资源函数
@@ -208,9 +303,69 @@
             }
         }
         
-        window.onload = function() {
-            // 移除重复的欢迎弹窗
-        };
+        // 彩色粒子点击特效
+        document.addEventListener('click', (e) => {
+            if(e.target.tagName === 'BUTTON') return;
+            
+            for(let i=0; i<20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 50 + 30;
+                const size = Math.random() * 8 + 4;
+                const hue = Math.random() * 360;
+                
+                particle.style.cssText = `
+                    --tx: ${Math.cos(angle) * dist}px;
+                    --ty: ${Math.sin(angle) * dist}px;
+                    background: hsl(${hue}, 100%, 50%);
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${e.clientX - size/2}px;
+                    top: ${e.clientY - size/2}px;
+                `;
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 1000);
+            }
+        });
+        
+        // 暗黑模式切换
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.documentElement.toggleAttribute('data-theme');
+            localStorage.setItem('theme', 
+                document.documentElement.hasAttribute('data-theme') ? 'dark' : 'light');
+        });
+        
+        // 初始化主题
+        if(localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        
+        // 鸡按钮彩蛋
+        let chickenClicks = 0;
+        document.getElementById('secret-chicken').addEventListener('click', () => {
+            chickenClicks++;
+            const chicken = document.getElementById('secret-chicken');
+            
+            chicken.style.transform = `rotate(${chickenClicks * 10}deg) scale(${1 + chickenClicks*0.1})`;
+            chicken.style.opacity = `${0.3 + chickenClicks*0.15}`;
+            
+            if(chickenClicks === 5) {
+                chicken.style.transition = 'all 0.5s';
+                chicken.style.transform = 'rotate(360deg) scale(3)';
+                chicken.style.opacity = '1';
+                
+                setTimeout(() => {
+                    window.location.href = 'https://www.bilibili.com/video/BV1GJ411x7h7';
+                }, 1500);
+            }
+        });
+        
+        // 控制台彩蛋
+        console.log('%c白帝WD专属领地', 
+            'color:red;font-size:20px;font-weight:bold;text-shadow:2px 2px 0px #000');
     </script>
 </body>
 </html>
