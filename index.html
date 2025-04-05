@@ -287,7 +287,7 @@
         
         <footer>
             <span id="secret-chicken" title="你知道该做什么...">🐔</span>
-            <p>© 2025 XvZero - 本网站内容仅供娱乐</p>
+            <p>© 2025 白帝WD - 本网站内容仅供娱乐</p>
             <p>安全提示：请勿下载不明来源的可执行文件</p>
         </footer>
     </div>
@@ -303,22 +303,39 @@
             }
         }
         
-        // 彩色粒子点击特效
+        // 彩色粒子点击特效（修复版）
+        let particlesContainer;
         document.addEventListener('click', (e) => {
-            if(e.target.tagName === 'BUTTON') return;
+            // 排除按钮和特殊元素的点击
+            if (e.target.tagName === 'BUTTON' || e.target.id === 'secret-chicken') return;
             
-            for(let i=0; i<20; i++) {
+            // 创建粒子容器（如果不存在）
+            if (!particlesContainer) {
+                particlesContainer = document.createElement('div');
+                particlesContainer.id = 'particles-container';
+                particlesContainer.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    pointer-events: none;
+                    z-index: 9999;
+                `;
+                document.body.appendChild(particlesContainer);
+            }
+            
+            // 生成20个粒子
+            for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
-                const angle = Math.random() * Math.PI * 2;
-                const dist = Math.random() * 50 + 30;
                 const size = Math.random() * 8 + 4;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 50 + 30;
                 const hue = Math.random() * 360;
                 
                 particle.style.cssText = `
-                    --tx: ${Math.cos(angle) * dist}px;
-                    --ty: ${Math.sin(angle) * dist}px;
+                    --tx: ${Math.cos(angle) * distance}px;
+                    --ty: ${Math.sin(angle) * distance}px;
                     background: hsl(${hue}, 100%, 50%);
                     width: ${size}px;
                     height: ${size}px;
@@ -326,20 +343,25 @@
                     top: ${e.clientY - size/2}px;
                 `;
                 
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 1000);
+                particlesContainer.appendChild(particle);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 1000);
             }
         });
         
         // 暗黑模式切换
         document.getElementById('theme-toggle').addEventListener('click', () => {
-            document.documentElement.toggleAttribute('data-theme');
-            localStorage.setItem('theme', 
-                document.documentElement.hasAttribute('data-theme') ? 'dark' : 'light');
+            const isDark = document.documentElement.toggleAttribute('data-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
         
         // 初始化主题
-        if(localStorage.getItem('theme') === 'dark') {
+        if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
         }
         
@@ -352,11 +374,16 @@
             chicken.style.transform = `rotate(${chickenClicks * 10}deg) scale(${1 + chickenClicks*0.1})`;
             chicken.style.opacity = `${0.3 + chickenClicks*0.15}`;
             
-            if(chickenClicks === 5) {
+            if (chickenClicks === 5) {
                 chicken.style.transition = 'all 0.5s';
                 chicken.style.transform = 'rotate(360deg) scale(3)';
                 chicken.style.opacity = '1';
                 
+                // 播放鸡叫声
+                const audio = new Audio('https://www.myinstants.com/media/sounds/chicken.mp3');
+                audio.play().catch(e => console.log('音频播放被阻止:', e));
+                
+                // 跳转B站
                 setTimeout(() => {
                     window.location.href = 'https://www.bilibili.com/video/BV1GJ411x7h7';
                 }, 1500);
@@ -366,6 +393,8 @@
         // 控制台彩蛋
         console.log('%c白帝WD专属领地', 
             'color:red;font-size:20px;font-weight:bold;text-shadow:2px 2px 0px #000');
+        console.log('检测到CV程序员技能：MAX！\n\n%c⚡ 技能释放：Ctrl+C → Ctrl+V', 
+            'background:black;color:cyan;padding:5px;');
     </script>
 </body>
 </html>
