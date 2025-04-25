@@ -6,30 +6,129 @@
     <title>白帝WD——权威</title>
     <style>
         :root {
-            --primary-color: #333;
-            --secondary-color: #f8f9fa;
-            --accent-color: #ff6b6b;
-            --bg-color: #f5f5f5;
+            --primary-color: #FFFFFF;
+            --secondary-color: #FFFFFF;
+            --accent-color: #000000;  /* 按钮默认颜色（黑色） */
+            --bg-color: #000000;
+            --border-glow-width: 10px; /* 边框流光宽度 */
         }
         
-        /* 暗黑模式变量 */
-        :root[data-theme="dark"] {
-            --primary-color: #f0f0f0;
-            --secondary-color: #2d2d2d;
-            --bg-color: #121212;
-        }
+        /* 删除了暗黑模式相关代码 */
         
         body {
+            position: relative;
             font-family: 'Microsoft YaHei', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
             color: var(--primary-color);
-            transition: background 0.5s;
+            min-height: 100vh;
+            background: var(--bg-color);
         }
         
-        /* 炫彩标题特效 */
+        /* 边框流光容器（保持不变） */
+        .glow-border {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        /* 四边的流光效果（保持不变） */
+        .glow-border::before,
+        .glow-border::after,
+        .glow-border > div::before,
+        .glow-border > div::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(
+                90deg,
+                #ff6b6b, #f06595, #cc5de8, #845ef7, 
+                #5c7cfa, #339af0, #22b8cf, #20c997, 
+                #51cf66, #94d82d, #fcc419, #ff922b
+            );
+            background-size: 300% 100%;
+            animation: borderGlow 8s linear infinite;
+            z-index: -1;
+        }
+        
+        /* 上边流光（保持不变） */
+        .glow-border::before {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--border-glow-width);
+        }
+        
+        /* 右边流光（保持不变） */
+        .glow-border::after {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: var(--border-glow-width);
+            background: linear-gradient(
+                180deg,
+                #ff6b6b, #f06595, #cc5de8, #845ef7, 
+                #5c7cfa, #339af0, #22b8cf, #20c997, 
+                #51cf66, #94d82d, #fcc419, #ff922b
+            );
+            background-size: 100% 300%;
+            animation: borderGlowVertical 8s linear infinite;
+        }
+        
+        /* 下边流光（保持不变） */
+        .glow-border > div::before {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--border-glow-width);
+            animation: borderGlow 8s linear infinite reverse;
+        }
+        
+        /* 左边流光（保持不变） */
+        .glow-border > div::after {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: var(--border-glow-width);
+            background: linear-gradient(
+                180deg,
+                #ff6b6b, #f06595, #cc5de8, #845ef7, 
+                #5c7cfa, #339af0, #22b8cf, #20c997, 
+                #51cf66, #94d82d, #fcc419, #ff922b
+            );
+            background-size: 100% 300%;
+            animation: borderGlowVertical 8s linear infinite reverse;
+        }
+        
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        @keyframes borderGlowVertical {
+            0% { background-position: 50% 0%; }
+            100% { background-position: 50% 100%; }
+        }
+        
+        /* 容器调整确保内容不被边框遮挡 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            margin-top: var(--border-glow-width);
+            margin-bottom: var(--border-glow-width);
+            margin-left: var(--border-glow-width);
+            margin-right: var(--border-glow-width);
+        }
+        
+        /* 炫彩标题特效（保持不变） */
         .gradient-title {
             display: inline-block;
             padding: 5px 15px;
@@ -61,7 +160,7 @@
             animation: flowCss 4s infinite linear;
         }
         
-        /* 粒子特效 */
+        /* 粒子特效（保持不变） */
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -75,15 +174,6 @@
                 opacity: 0; 
                 transform: translate(var(--tx), var(--ty)) scale(0); 
             }
-        }
-        
-        /* 布局样式 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
         }
         
         header {
@@ -115,9 +205,10 @@
             transform: translateX(5px);
         }
         
+        /* 修改按钮样式 */
         .download-btn {
             display: inline-block;
-            background-color: var(--accent-color);
+            background-color: var(--accent-color);  /* 默认黑色 */
             color: white;
             padding: 8px 16px;
             border-radius: 4px;
@@ -128,8 +219,9 @@
             border: none;
         }
         
+        /* 修改悬停颜色为黑色（更深的黑色） */
         .download-btn:hover {
-            background-color: #ff5252;
+            background-color: #000000;  /* 纯黑色悬停 */
             transform: translateY(-2px);
         }
         
@@ -182,24 +274,9 @@
             height: 100%;
         }
         
-        /* 暗黑模式切换按钮 */
-        #theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
+        /* 删除了暗黑模式切换按钮的样式 */
         
-        /* 鸡按钮彩蛋 */
+        /* 鸡按钮彩蛋（保持不变） */
         #secret-chicken {
             cursor: pointer;
             display: inline-block;
@@ -216,6 +293,9 @@
     </style>
 </head>
 <body>
+    <!-- 边框流光容器 -->
+    <div class="glow-border"><div></div></div>
+    
     <div class="container">
         <header>
             <h1 class="gradient-title">꧁白帝资源下载站꧂</h1>
@@ -273,6 +353,16 @@
                 </button>
                 <span class="password-tag" onclick="this.textContent='真实密码：666'">密码: 666</span>
             </div>
+          
+            <div class="resource-item">
+                <h3>SEEWO HACK.exe</h3>
+                <p>一个黑希沃白板的小程序</p>
+                <button class="download-btn" 
+                   onclick="downloadResource('SEEWO HACK.exe', 'https://wwzo.lanzoue.com/ioYWl2uicqkj', 'seewo')">
+                   下载EXE
+                </button>
+                <span class="password-tag" onclick="this.textContent='真实密码：seewo'">密码: seewo</span>
+            </div>
             
             <div class="resource-item">
                 <h3>拼好歌.mp3</h3>
@@ -292,8 +382,7 @@
         </footer>
     </div>
     
-    <!-- 暗黑模式切换按钮 -->
-    <button id="theme-toggle">🌓</button>
+    <!-- 删除了暗黑模式切换按钮 -->
     
     <script>
         // 下载资源函数
@@ -354,16 +443,7 @@
             }
         });
         
-        // 暗黑模式切换
-        document.getElementById('theme-toggle').addEventListener('click', () => {
-            const isDark = document.documentElement.toggleAttribute('data-theme');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
-        
-        // 初始化主题
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
+        // 删除了暗黑模式切换的JS代码
         
         // 鸡按钮彩蛋
         let chickenClicks = 0;
