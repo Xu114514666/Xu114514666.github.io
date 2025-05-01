@@ -1,480 +1,177 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>白帝WD——权威</title>
-    <style>
-        :root {
-            --primary-color: #FFFFFF;
-            --secondary-color: #FFFFFF;
-            --accent-color: #000000;  /* 按钮默认颜色（黑色） */
-            --bg-color: #000000;
-            --border-glow-width: 10px; /* 边框流光宽度 */
-        }
-        
-        /* 删除了暗黑模式相关代码 */
-        
-        body {
-            position: relative;
-            font-family: 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: var(--primary-color);
-            min-height: 100vh;
-            background: var(--bg-color);
-        }
-        
-        /* 边框流光容器（保持不变） */
-        .glow-border {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        /* 四边的流光效果（保持不变） */
-        .glow-border::before,
-        .glow-border::after,
-        .glow-border > div::before,
-        .glow-border > div::after {
-            content: '';
-            position: absolute;
-            background: linear-gradient(
-                90deg,
-                #ff6b6b, #f06595, #cc5de8, #845ef7, 
-                #5c7cfa, #339af0, #22b8cf, #20c997, 
-                #51cf66, #94d82d, #fcc419, #ff922b
-            );
-            background-size: 300% 100%;
-            animation: borderGlow 8s linear infinite;
-            z-index: -1;
-        }
-        
-        /* 上边流光（保持不变） */
-        .glow-border::before {
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--border-glow-width);
-        }
-        
-        /* 右边流光（保持不变） */
-        .glow-border::after {
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: var(--border-glow-width);
-            background: linear-gradient(
-                180deg,
-                #ff6b6b, #f06595, #cc5de8, #845ef7, 
-                #5c7cfa, #339af0, #22b8cf, #20c997, 
-                #51cf66, #94d82d, #fcc419, #ff922b
-            );
-            background-size: 100% 300%;
-            animation: borderGlowVertical 8s linear infinite;
-        }
-        
-        /* 下边流光（保持不变） */
-        .glow-border > div::before {
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: var(--border-glow-width);
-            animation: borderGlow 8s linear infinite reverse;
-        }
-        
-        /* 左边流光（保持不变） */
-        .glow-border > div::after {
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: var(--border-glow-width);
-            background: linear-gradient(
-                180deg,
-                #ff6b6b, #f06595, #cc5de8, #845ef7, 
-                #5c7cfa, #339af0, #22b8cf, #20c997, 
-                #51cf66, #94d82d, #fcc419, #ff922b
-            );
-            background-size: 100% 300%;
-            animation: borderGlowVertical 8s linear infinite reverse;
-        }
-        
-        @keyframes borderGlow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        
-        @keyframes borderGlowVertical {
-            0% { background-position: 50% 0%; }
-            100% { background-position: 50% 100%; }
-        }
-        
-        /* 容器调整确保内容不被边框遮挡 */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-            margin-top: var(--border-glow-width);
-            margin-bottom: var(--border-glow-width);
-            margin-left: var(--border-glow-width);
-            margin-right: var(--border-glow-width);
-        }
-        
-        /* 炫彩标题特效（保持不变） */
-        .gradient-title {
-            display: inline-block;
-            padding: 5px 15px;
-            background: linear-gradient(135deg,
-                    #0eaf6d,
-                    #ff6ac6 25%,
-                    #147b96 50%,
-                    #e6d205 55%,
-                    #2cc4e0 60%,
-                    #8b2ce0 80%,
-                    #ff6384 95%,
-                    #08dfb4);
-            -webkit-text-fill-color: transparent;
-            -webkit-background-clip: text;
-            background-clip: text;
-            background-size: 200% 100%;
-            animation: flowCss 12s infinite linear;
-            font-size: 2.2em;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        
-        @keyframes flowCss {
-            0% { background-position: 0 0; }
-            100% { background-position: -400% 0; }
-        }
-        
-        .gradient-title:hover {
-            animation: flowCss 4s infinite linear;
-        }
-        
-        /* 粒子特效（保持不变） */
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: fade 1s forwards;
-            z-index: 1000;
-        }
-        
-        @keyframes fade {
-            to { 
-                opacity: 0; 
-                transform: translate(var(--tx), var(--ty)) scale(0); 
-            }
-        }
-        
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            border-radius: 8px 8px 0 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .content-box {
-            background-color: var(--secondary-color);
-            border-radius: 8px;
-            padding: 30px;
-            margin-top: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .resource-item {
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 4px solid var(--accent-color);
-            background-color: rgba(255,107,107,0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .resource-item:hover {
-            transform: translateX(5px);
-        }
-        
-        /* 修改按钮样式 */
-        .download-btn {
-            display: inline-block;
-            background-color: var(--accent-color);  /* 默认黑色 */
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            margin-top: 10px;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-        
-        /* 修改悬停颜色为黑色（更深的黑色） */
-        .download-btn:hover {
-            background-color: #000000;  /* 纯黑色悬停 */
-            transform: translateY(-2px);
-        }
-        
-        .password-tag {
-            display: inline-block;
-            background-color: #e9ecef;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-family: monospace;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-        
-        .recommended-badge {
-            background-color: gold;
-            color: var(--primary-color);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #666;
-            font-size: 14px;
-            position: relative;
-        }
-        
-        .center-content {
-            text-align: center;
-        }
-        
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            margin: 15px 0;
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* 删除了暗黑模式切换按钮的样式 */
-        
-        /* 鸡按钮彩蛋（保持不变） */
-        #secret-chicken {
-            cursor: pointer;
-            display: inline-block;
-            font-size: 0.8em;
-            opacity: 0.3;
-            transition: all 0.3s;
-            margin-right: 5px;
-        }
-        
-        #secret-chicken:hover {
-            opacity: 0.7;
-            transform: rotate(10deg);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>哈哈哈哈哈</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000;
+      color: #f0f0f0;
+      font-family: "Microsoft YaHei", sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      background-color: #111;
+      border-bottom: 2px solid #444;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #fff;
+    }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: #111;
+      border: 2px solid #444;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      transition: transform 0.3s ease, border-color 0.3s;
+    }
+
+    .card:hover {
+      transform: translateX(20px);
+      border-color: #aaa;
+    }
+
+    .card h2 {
+      font-size: 1.5em;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1em;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .card a.btn {
+      display: inline-block;
+      background-color: #000;
+      color: #fff;
+      border: 2px solid #555;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .card a.btn:hover {
+      background-color: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      border-top: 2px solid #444;
+      color: #888;
+    }
+
+    /* 粒子背景层 */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+  </style>
 </head>
 <body>
-    <!-- 边框流光容器 -->
-    <div class="glow-border"><div></div></div>
-    
-    <div class="container">
-        <header>
-            <h1 class="gradient-title">꧁白帝资源下载站꧂</h1>
-        </header>
-        
-        <div class="content-box">
-            <h2 style="text-align: center; letter-spacing: 8px;">🔎资源列表🔍</h2>
-            
-            <div class="resource-item">
-                <h3 class="center-content">👇苏妲己の盛情演讲👇</h3>
-                <div class="video-container">
-                    <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112845534595866&bvid=BV1rJedeTEca&cid=500001626710915&p=1" 
-                            frameborder="0" 
-                            allowfullscreen></iframe>
-                </div>
-                <p class="center-content"><span class="recommended-badge">❤站❤长❤推❤荐❤</span></p>
-            </div>
-            
-            <div class="resource-item">
-                <h3>？.exe</h3>
-                <p>一个恶搞白帝的小程序</p>
-                <button class="download-btn" 
-                   onclick="downloadResource('？？？.exe', 'https://wwzo.lanzoue.com/i6ryn2r6yyod', '114514')">
-                   下载EXE文件
-                </button>
-                <span class="password-tag" onclick="this.textContent='真实密码：114514'">密码: 114514</span>
-            </div>
-			
-			<div class="resource-item">
-                <h3>白帝——权威！.exe</h3>
-                <p>一个恶搞白帝的小病毒</p>
-                <button class="download-btn" 
-                   onclick="downloadResource('白帝——权威！.exe', 'https://wwzo.lanzoue.com/iPOYO2sab14h', '233')">
-                   下载EXE文件
-                </button>
-                <span class="password-tag" onclick="this.textContent='真实密码：233'">密码: 233</span>
-            </div>
-            
-            <div class="resource-item">
-                <h3>牢犬.png</h3>
-                <p>牢犬也干了</p>
-                <button class="download-btn" 
-                   onclick="downloadResource('牢犬.png', 'https://wwzo.lanzoue.com/i4mjf2rq9vsj', '54188')">
-                   下载PNG图片
-                </button>
-                <span class="password-tag" onclick="this.textContent='真实密码：54188'">密码: 54188</span>
-            </div>
-            
-            <div class="resource-item">
-                <h3>王子涵の小曲.mp3</h3>
-                <p>《王子涵の小曲》</p>
-                <button class="download-btn" 
-                   onclick="downloadResource('王子涵の小曲.mp3', 'https://wwzo.lanzoue.com/i7X732rqedib', '666')">
-                   下载MP3
-                </button>
-                <span class="password-tag" onclick="this.textContent='真实密码：666'">密码: 666</span>
-            </div>
-          
-            <div class="resource-item">
-                <h3>SEEWO HACK.exe</h3>
-                <p>一个黑希沃白板的小程序</p>
-                <button class="download-btn" 
-                   onclick="downloadResource('SEEWO HACK.exe', 'https://wwzo.lanzoue.com/ioYWl2uicqkj', 'seewo')">
-                   下载EXE
-                </button>
-                <span class="password-tag" onclick="this.textContent='真实密码：seewo'">密码: seewo</span>
-            </div>
-            
-            <div class="resource-item">
-                <h3>拼好歌.mp3</h3>
-                <p>《拼好歌》</p>
-                <button class="download-btn" 
-                   onclick="downloadResource('拼好歌.mp3', 'https://wwzo.lanzoue.com/iCsY22rqf4gb', '666')">
-                   下载MP3
-                </button>
-                <span class="password-tag" onclick="this.textContent='真实密码：666'">密码: 666</span>
-            </div>
-        </div>
-        
-        <footer>
-            <span id="secret-chicken" title="你知道该做什么...">🐔</span>
-            <p>© 2025 白帝WD - 本网站内容仅供娱乐</p>
-            <p>安全提示：请勿下载不明来源的可执行文件</p>
-        </footer>
+  <div id="particles-js"></div>
+  <header>
+    <h1>这是标题</h1>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>资源一</h2>
+      <p>这是一个测试资源描述，保持黑白风格。</p>
+      <a href="https://www.google.com" class="btn" target="_blank">立即下载</a>
     </div>
-    
-    <!-- 删除了暗黑模式切换按钮 -->
-    
-    <script>
-        // 下载资源函数
-        function downloadResource(filename, url, password) {
-            if(confirm(`即将下载: ${filename}\n\n下载密码: ${password}\n\n请确保文件来源可靠！`)) {
-                window.open(url, '_blank');
-            }
+
+    <div class="card">
+      <h2>资源二</h2>
+      <p>所有文字都清晰显示，不会与背景重叠。</p>
+      <a href="https://www.google.com" class="btn" target="_blank">立即下载</a>
+    </div>
+  </div>
+
+    <div class="card">
+      <h2>资源二</h2>
+      <p>所有文字都清晰显示，不会与背景重叠。</p>
+      <a href="https://www.google.com" class="btn" target="_blank">立即下载</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 白帝WD——权威
+  </footer>
+
+  <!-- particles.js script -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.3,
+          random: true
+        },
+        size: {
+          value: 3,
+          random: true
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#888",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          out_mode: "out"
         }
-        
-        // 彩色粒子点击特效（修复版）
-        let particlesContainer;
-        document.addEventListener('click', (e) => {
-            // 排除按钮和特殊元素的点击
-            if (e.target.tagName === 'BUTTON' || e.target.id === 'secret-chicken') return;
-            
-            // 创建粒子容器（如果不存在）
-            if (!particlesContainer) {
-                particlesContainer = document.createElement('div');
-                particlesContainer.id = 'particles-container';
-                particlesContainer.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    pointer-events: none;
-                    z-index: 9999;
-                `;
-                document.body.appendChild(particlesContainer);
-            }
-            
-            // 生成20个粒子
-            for (let i = 0; i < 20; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 8 + 4;
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * 50 + 30;
-                const hue = Math.random() * 360;
-                
-                particle.style.cssText = `
-                    --tx: ${Math.cos(angle) * distance}px;
-                    --ty: ${Math.sin(angle) * distance}px;
-                    background: hsl(${hue}, 100%, 50%);
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${e.clientX - size/2}px;
-                    top: ${e.clientY - size/2}px;
-                `;
-                
-                particlesContainer.appendChild(particle);
-                
-                // 自动移除
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        particle.remove();
-                    }
-                }, 1000);
-            }
-        });
-        
-        // 删除了暗黑模式切换的JS代码
-        
-        // 鸡按钮彩蛋
-        let chickenClicks = 0;
-        document.getElementById('secret-chicken').addEventListener('click', () => {
-            chickenClicks++;
-            const chicken = document.getElementById('secret-chicken');
-            
-            chicken.style.transform = `rotate(${chickenClicks * 10}deg) scale(${1 + chickenClicks*0.1})`;
-            chicken.style.opacity = `${0.3 + chickenClicks*0.15}`;
-            
-            if (chickenClicks === 5) {
-                chicken.style.transition = 'all 0.5s';
-                chicken.style.transform = 'rotate(360deg) scale(3)';
-                chicken.style.opacity = '1';
-                
-                // 播放鸡叫声
-                const audio = new Audio('https://www.myinstants.com/media/sounds/chicken.mp3');
-                audio.play().catch(e => console.log('音频播放被阻止:', e));
-                
-                // 跳转B站
-                setTimeout(() => {
-                    window.location.href = 'https://www.bilibili.com/video/BV1GJ411x7h7';
-                }, 1500);
-            }
-        });
-        
-        // 控制台彩蛋
-        console.log('%c白帝WD专属领地', 
-            'color:red;font-size:20px;font-weight:bold;text-shadow:2px 2px 0px #000');
-        console.log('检测到CV程序员技能：MAX！\n\n%c⚡ 技能释放：Ctrl+C → Ctrl+V', 
-            'background:black;color:cyan;padding:5px;');
-    </script>
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        },
+        modes: {
+          repulse: { distance: 100 },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
 </body>
 </html>
